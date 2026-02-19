@@ -97,42 +97,7 @@ audios.forEach(audio => {
   });
 });
 
-// --- SE 音用 ---
-const powerSE = new Audio("power.mp3");
-const meowSE = new Audio("meow.mp3");
 
-document.body.addEventListener('click', (e) => {
-  const x = e.clientX;
-  const y = e.clientY;
-
-  const rightUpperX = [1530, 2120];
-  const rightUpperY = [255, 435];
-  const rightLowerX = [1700, 2080];
-  const rightLowerY = [1250, 1470];
-
-  let seToPlay = null;
-
-  // 右下クリック
-  if(x >= rightLowerX[0] && x <= rightLowerX[1] && y >= rightLowerY[0] && y <= rightLowerY[1]) {
-    seToPlay = powerSE;
-  }
-  // 右上クリック（特定画像）
-  else if(x >= rightUpperX[0] && x <= rightUpperX[1] && y >= rightUpperY[0] && y <= rightUpperY[1]) {
-    if(["mea blue pluspicture who.png","mea red pluspicture who.png","mea blue pluspicture.png","mea red pluspicture.png"].includes(chosenImage)) {
-      seToPlay = meowSE;
-    }
-  }
-
-  if(seToPlay) {
-    // 上書き再生
-    if(!seToPlay.paused) seToPlay.currentTime = 0;
-    // 他のSEが鳴ってたら止める
-    [powerSE, meowSE].forEach(se => {
-      if(se !== seToPlay) se.pause();
-    });
-    seToPlay.play();
-  }
-});
 </script>
 
 </body>
