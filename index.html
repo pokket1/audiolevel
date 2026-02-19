@@ -60,7 +60,7 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
-// 同時再生禁止
+
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
