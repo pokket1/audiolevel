@@ -10,16 +10,15 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: black; 
+  background-color: black;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 #bg-img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain; 
+  object-fit: contain;
   position: absolute;
   top: 0;
   left: 0;
@@ -27,7 +26,6 @@ body {
   height: 100%;
   z-index: -1;
 }
-
 audio {
   position: absolute;
   width: 250px;
@@ -47,11 +45,7 @@ audio {
 <audio controls src="135.mp3"></audio>
 <audio controls src="138.mp3"></audio>
 
-<audio id="power" src="power.mp3"></audio>
-<audio id="meow" src="meow.mp3"></audio>
-
 <script>
-
 const images = [
   "mea red heart.png",
   "mea blue pluspicture who.png",
@@ -64,11 +58,10 @@ const images = [
   "mea red pluscolor.png"
 ];
 const bgImg = document.getElementById("bg-img");
-const currentBg = images[Math.floor(Math.random() * images.length)];
-bgImg.src = currentBg;
+const chosenImage = images[Math.floor(Math.random() * images.length)];
+bgImg.src = chosenImage;
 
-
-const audios = Array.from(document.querySelectorAll("audio:not(#power):not(#meow)"));
+const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
 const cellWidth = window.innerWidth / cols;
@@ -92,7 +85,6 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
-
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
@@ -105,47 +97,42 @@ audios.forEach(audio => {
   });
 });
 
+// --- SE 音用 ---
+const powerSE = new Audio("power.mp3");
+const meowSE = new Audio("meow.mp3");
 
-const power = document.getElementById("power");
-const meow = document.getElementById("meow");
+document.body.addEventListener('click', (e) => {
+  const x = e.clientX;
+  const y = e.clientY;
 
+  const rightUpperX = [1530, 2120];
+  const rightUpperY = [255, 435];
+  const rightLowerX = [1700, 2080];
+  const rightLowerY = [1250, 1470];
 
-const rightUpperArea = document.createElement("div");
-rightUpperArea.style.position = "absolute";
-rightUpperArea.style.left = "1530px";
-rightUpperArea.style.top = "255px";
-rightUpperArea.style.width = (2120-1530) + "px";
-rightUpperArea.style.height = (435-255) + "px";
-rightUpperArea.style.zIndex = 999;
-rightUpperArea.style.cursor = "pointer";
-rightUpperArea.addEventListener("click", () => {
-  const specialBg = [
-    "mea blue pluspicture who.png",
-    "mea red pluspicture who.png",
-    "mea blue pluspicture.png",
-    "mea red pluspicture.png"
-  ];
-  if (specialBg.some(name => currentBg.includes(name))) {
-    meow.currentTime = 0;
-    meow.play();
+  let seToPlay = null;
+
+  // 右下クリック
+  if(x >= rightLowerX[0] && x <= rightLowerX[1] && y >= rightLowerY[0] && y <= rightLowerY[1]) {
+    seToPlay = powerSE;
+  }
+  // 右上クリック（特定画像）
+  else if(x >= rightUpperX[0] && x <= rightUpperX[1] && y >= rightUpperY[0] && y <= rightUpperY[1]) {
+    if(["mea blue pluspicture who.png","mea red pluspicture who.png","mea blue pluspicture.png","mea red pluspicture.png"].includes(chosenImage)) {
+      seToPlay = meowSE;
+    }
+  }
+
+  if(seToPlay) {
+    // 上書き再生
+    if(!seToPlay.paused) seToPlay.currentTime = 0;
+    // 他のSEが鳴ってたら止める
+    [powerSE, meowSE].forEach(se => {
+      if(se !== seToPlay) se.pause();
+    });
+    seToPlay.play();
   }
 });
-document.body.appendChild(rightUpperArea);
-
-  
-const rightLowerArea = document.createElement("div");
-rightLowerArea.style.position = "absolute";
-rightLowerArea.style.left = "1700px";
-rightLowerArea.style.top = "1250px";
-rightLowerArea.style.width = (2080-1700) + "px";
-rightLowerArea.style.height = (1470-1250) + "px";
-rightLowerArea.style.zIndex = 999;
-rightLowerArea.style.cursor = "pointer";
-rightLowerArea.addEventListener("click", () => {
-  power.currentTime = 0;
-  power.play();
-});
-document.body.appendChild(rightLowerArea);
 </script>
 
 </body>
