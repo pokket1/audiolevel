@@ -1,47 +1,39 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>MEA OST demo</title>
+<title>MEA ost demo</title>
 <style>
-html, body {
+body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
   position: relative;
-}
-
-/* 背景画像用 */
-body {
-  background-size: cover;      /* 全体にフィット */
-  background-position: center; /* 真ん中で表示 */
+  overflow: hidden;
+  background-position: center;
   background-repeat: no-repeat;
+  background-size: contain;
 }
 
-/* 音声プレイヤー */
 audio {
   position: absolute;
   width: 250px;
-  background-color: white;  /* 黒から白に */
-  color: black;
-  border-radius: 5px;
 }
 </style>
 </head>
 <body>
 
-<audio controls src="117.mp3" preload="none"></audio>
-<audio controls src="118.mp3" preload="none"></audio>
-<audio controls src="123.mp3" preload="none"></audio>
-<audio controls src="129.mp3" preload="none"></audio>
-<audio controls src="131.mp3" preload="none"></audio>
-<audio controls src="135.mp3" preload="none"></audio>
-<audio controls src="138.mp3" preload="none"></audio>
+<audio controls src="117.mp3"></audio>
+<audio controls src="118.mp3"></audio>
+<audio controls src="123.mp3"></audio>
+<audio controls src="129.mp3"></audio>
+<audio controls src="131.mp3"></audio>
+<audio controls src="135.mp3"></audio>
+<audio controls src="138.mp3"></audio>
 
 <script>
-// 背景画像リスト
-const bgImages = [
+
+const backgrounds = [
   "mea red heart.png",
   "mea blue pluspicture who.png",
   "mea red pluspicture who.png",
@@ -52,11 +44,9 @@ const bgImages = [
   "mea blue pluscolor.png",
   "mea red pluscolor.png"
 ];
+document.body.style.backgroundImage = `url('${backgrounds[Math.floor(Math.random() * backgrounds.length)]}')`;
 
-// ページロードごとにランダム背景
-document.body.style.backgroundImage = `url('${bgImages[Math.floor(Math.random() * bgImages.length)]}')`;
 
-// 音声のランダム配置
 const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
@@ -81,12 +71,13 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
+
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
-        other.currentTime = 0;
+        other.currentTime = 0; 
       }
     });
   });
