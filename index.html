@@ -5,11 +5,12 @@
 <title></title>
 <style>
 body {
-  height: 300vh;
+  height: 150vh;
   position: relative;
 }
 audio {
   position: absolute;
+  width: 250px;
 }
 </style>
 </head>
@@ -27,8 +28,12 @@ window.onload = function() {
   const audios = document.querySelectorAll("audio");
 
   audios.forEach(audio => {
-    const top = Math.random() * (window.innerHeight * 2);
-    const left = Math.random() * (window.innerWidth - 250);
+    const maxTop = document.body.scrollHeight - 60;
+    const maxLeft = window.innerWidth - 260;
+
+    const top = Math.random() * maxTop;
+    const left = Math.random() * maxLeft;
+
     audio.style.top = top + "px";
     audio.style.left = left + "px";
   });
