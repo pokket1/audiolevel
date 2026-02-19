@@ -27,15 +27,30 @@ audio {
 <audio controls src="138.mp3"></audio>
 
 <script>
-const audios = document.querySelectorAll("audio");
-const maxTop = window.innerHeight - 80;
-const maxLeft = window.innerWidth - 260;
+const audios = Array.from(document.querySelectorAll("audio"));
+const rows = 3; 
+const cols = 3; 
+const cellWidth = window.innerWidth / cols;
+const cellHeight = window.innerHeight / rows;
+
+
+const usedCells = [];
 
 audios.forEach(audio => {
-  const top = Math.random() * maxTop;
-  const left = Math.random() * maxLeft;
-  audio.style.top = top + "px";
-  audio.style.left = left + "px";
+  let cell;
+  do {
+    const r = Math.floor(Math.random() * rows);
+    const c = Math.floor(Math.random() * cols);
+    cell = r + '-' + c;
+  } while (usedCells.includes(cell));
+  usedCells.push(cell);
+
+  const [r, c] = cell.split('-').map(Number);
+  const top = r * cellHeight + Math.random() * (cellHeight - 80);
+  const left = c * cellWidth + Math.random() * (cellWidth - 260);
+
+  audio.style.top = top + 'px';
+  audio.style.left = left + 'px';
 });
 </script>
 
