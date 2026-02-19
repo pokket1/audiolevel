@@ -10,7 +10,7 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-color: black; /* 余白を黒で埋める */
+  background-color: black; 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -47,6 +47,9 @@ audio {
 <audio controls src="135.mp3"></audio>
 <audio controls src="138.mp3"></audio>
 
+<audio id="power" src="power.mp3"></audio>
+<audio id="meow" src="meow.mp3"></audio>
+
 <script>
 
 const images = [
@@ -61,10 +64,11 @@ const images = [
   "mea red pluscolor.png"
 ];
 const bgImg = document.getElementById("bg-img");
-bgImg.src = images[Math.floor(Math.random() * images.length)];
+const currentBg = images[Math.floor(Math.random() * images.length)];
+bgImg.src = currentBg;
 
 
-const audios = Array.from(document.querySelectorAll("audio"));
+const audios = Array.from(document.querySelectorAll("audio:not(#power):not(#meow)"));
 const rows = 3;
 const cols = 3;
 const cellWidth = window.innerWidth / cols;
@@ -100,6 +104,48 @@ audios.forEach(audio => {
     audio.play();
   });
 });
+
+
+const power = document.getElementById("power");
+const meow = document.getElementById("meow");
+
+
+const rightUpperArea = document.createElement("div");
+rightUpperArea.style.position = "absolute";
+rightUpperArea.style.left = "1530px";
+rightUpperArea.style.top = "255px";
+rightUpperArea.style.width = (2120-1530) + "px";
+rightUpperArea.style.height = (435-255) + "px";
+rightUpperArea.style.zIndex = 999;
+rightUpperArea.style.cursor = "pointer";
+rightUpperArea.addEventListener("click", () => {
+  const specialBg = [
+    "mea blue pluspicture who.png",
+    "mea red pluspicture who.png",
+    "mea blue pluspicture.png",
+    "mea red pluspicture.png"
+  ];
+  if (specialBg.some(name => currentBg.includes(name))) {
+    meow.currentTime = 0;
+    meow.play();
+  }
+});
+document.body.appendChild(rightUpperArea);
+
+  
+const rightLowerArea = document.createElement("div");
+rightLowerArea.style.position = "absolute";
+rightLowerArea.style.left = "1700px";
+rightLowerArea.style.top = "1250px";
+rightLowerArea.style.width = (2080-1700) + "px";
+rightLowerArea.style.height = (1470-1250) + "px";
+rightLowerArea.style.zIndex = 999;
+rightLowerArea.style.cursor = "pointer";
+rightLowerArea.addEventListener("click", () => {
+  power.currentTime = 0;
+  power.play();
+});
+document.body.appendChild(rightLowerArea);
 </script>
 
 </body>
