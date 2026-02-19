@@ -11,53 +11,30 @@ body {
   position: relative;
   overflow: hidden;
 }
-
-/* PC用は普通にaudio表示 */
-.audio-pc {
+audio {
   position: absolute;
-  width: 250px;
-}
-
-/* スマホ用ボタン */
-@media (max-width: 768px) {
-  .audio-pc {
-    display: none; /* audioを非表示 */
-  }
-  .play-button {
-    position: absolute;
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    font-size: 14px;
-    text-align: center;
-    line-height: 80px;
-    background-color: #3498db;
-    color: white;
-    cursor: pointer;
-    user-select: none;
-  }
+  width: 250px; 
 }
 </style>
 </head>
 <body>
 
-<!-- PC用audio -->
-<audio class="audio-pc" controls src="117.mp3"></audio>
-<audio class="audio-pc" controls src="123.mp3"></audio>
-<audio class="audio-pc" controls src="129.mp3"></audio>
-<audio class="audio-pc" controls src="131.mp3"></audio>
-<audio class="audio-pc" controls src="135.mp3"></audio>
-<audio class="audio-pc" controls src="138.mp3"></audio>
+<audio controls src="117.mp3"></audio>
+<audio controls src="123.mp3"></audio>
+<audio controls src="129.mp3"></audio>
+<audio controls src="131.mp3"></audio>
+<audio controls src="135.mp3"></audio>
+<audio controls src="138.mp3"></audio>
 
 <script>
-const audios = Array.from(document.querySelectorAll("audio.audio-pc"));
+const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
 const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
 
-// PCもスマホも位置ランダム（重なりなし）
+
 audios.forEach(audio => {
   let cell;
   do {
@@ -75,53 +52,18 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
-// 同時再生禁止 PC版
+
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
-        other.currentTime = 0;
+        other.currentTime = 0; 
       }
     });
     audio.play();
   });
 });
-
-// スマホ用ボタン生成
-if (window.innerWidth <= 768) {
-  audios.forEach((audio, index) => {
-    const btn = document.createElement('div');
-    btn.className = 'play-button';
-    btn.innerText = `曲 ${index + 1}`;
-    
-    let cell;
-    do {
-      const r = Math.floor(Math.random() * rows);
-      const c = Math.floor(Math.random() * cols);
-      cell = r + '-' + c;
-    } while (usedCells.includes(cell));
-    usedCells.push(cell);
-
-    const [r, c] = cell.split('-').map(Number);
-    const top = r * cellHeight + Math.random() * (cellHeight - 80);
-    const left = c * cellWidth + Math.random() * (cellWidth - 80);
-    btn.style.top = top + 'px';
-    btn.style.left = left + 'px';
-    
-    btn.addEventListener('click', () => {
-      audios.forEach(other => {
-        if (other !== audio) {
-          other.pause();
-          other.currentTime = 0;
-        }
-      });
-      audio.play();
-    });
-    
-    document.body.appendChild(btn);
-  });
-}
 </script>
 
 </body>
