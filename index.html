@@ -14,7 +14,6 @@ body {
 audio {
   position: absolute;
   width: 250px;
-  visibility: hidden; 
 }
 </style>
 </head>
@@ -28,18 +27,15 @@ audio {
 <audio controls src="138.mp3"></audio>
 
 <script>
-window.addEventListener("load", () => {
-  const audios = document.querySelectorAll("audio");
-  const maxTop = window.innerHeight - 80;
-  const maxLeft = window.innerWidth - 260;
+const audios = document.querySelectorAll("audio");
+const maxTop = window.innerHeight - 80;
+const maxLeft = window.innerWidth - 260;
 
-  audios.forEach(audio => {
-    const top = Math.random() * maxTop;
-    const left = Math.random() * maxLeft;
-    audio.style.top = top + "px";
-    audio.style.left = left + "px";
-    audio.style.visibility = "visible"; 
-  });
+audios.forEach(audio => {
+  const top = Math.random() * maxTop;
+  const left = Math.random() * maxLeft;
+  audio.style.top = top + "px";
+  audio.style.left = left + "px";
 });
 </script>
 
