@@ -7,6 +7,7 @@
 body {
   height: 150vh;
   position: relative;
+  margin: 0;
 }
 audio {
   position: absolute;
@@ -16,6 +17,32 @@ audio {
 </head>
 <body>
 
+<!-- 全6曲 -->
 <audio controls src="117.mp3"></audio>
 <audio controls src="123.mp3"></audio>
-<audio controls s
+<audio controls src="129.mp3"></audio>
+<audio controls src="131.mp3"></audio>
+<audio controls src="135.mp3"></audio>
+<audio controls src="138.mp3"></audio>
+
+<script>
+window.addEventListener("load", () => {
+  const audios = document.querySelectorAll("audio");
+
+  audios.forEach(audio => {
+    setTimeout(() => {
+      const maxTop = window.innerHeight - 80;
+      const maxLeft = window.innerWidth - 260;
+
+      const top = Math.random() * maxTop;
+      const left = Math.random() * maxLeft;
+
+      audio.style.top = top + "px";
+      audio.style.left = left + "px";
+    }, Math.random() * 200); 
+  });
+});
+</script>
+
+</body>
+</html>
