@@ -28,13 +28,12 @@ audio {
 
 <script>
 const audios = Array.from(document.querySelectorAll("audio"));
-const rows = 3; 
-const cols = 3; 
+const rows = 3;
+const cols = 3;
 const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
-
-
 const usedCells = [];
+
 
 audios.forEach(audio => {
   let cell;
@@ -51,6 +50,17 @@ audios.forEach(audio => {
 
   audio.style.top = top + 'px';
   audio.style.left = left + 'px';
+});
+
+
+audios.forEach(audio => {
+  audio.addEventListener('play', () => {
+    audios.forEach(other => {
+      if (other !== audio) {
+        other.pause();
+      }
+    });
+  });
 });
 </script>
 
