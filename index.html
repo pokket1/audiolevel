@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>MEA ost Demo</title>
 <style>
 body {
   margin: 0;
@@ -10,6 +10,9 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 audio {
   position: absolute;
@@ -20,6 +23,7 @@ audio {
 <body>
 
 <audio controls src="117.mp3"></audio>
+<audio controls src="118.mp3"></audio>
 <audio controls src="123.mp3"></audio>
 <audio controls src="129.mp3"></audio>
 <audio controls src="131.mp3"></audio>
@@ -27,13 +31,28 @@ audio {
 <audio controls src="138.mp3"></audio>
 
 <script>
+
+const backgrounds = [
+  'mea red heart.png',
+  'mea blue pluspicture who.png',
+  'mea red pluspicture who.png',
+  'mea blue pluspicture.png',
+  'mea red pluspicture.png',
+  'mea blue.png',
+  'mea red.png',
+  'mea blue pluscolor.png',
+  'mea red pluscolor.png'
+];
+const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+document.body.style.backgroundImage = `url(${randomBg})`;
+
+
 const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
 const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
-
 
 audios.forEach(audio => {
   let cell;
