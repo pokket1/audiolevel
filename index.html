@@ -34,6 +34,7 @@ const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
 
+// ランダム配置（重なりなし）
 audios.forEach(audio => {
   let cell;
   do {
@@ -51,16 +52,16 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
-
+// 同時再生禁止（修正版）
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
-        other.currentTime = 0; 
+        other.currentTime = 0; // 再生位置リセット
       }
     });
-    audio.play(); 
+    audio.play(); // 念のため自分を再生
   });
 });
 </script>
