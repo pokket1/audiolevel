@@ -4,21 +4,40 @@
 <meta charset="UTF-8">
 <title>MEA OST demo</title>
 <style>
-  html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background-color: black; 
-  }
-  audio {
-    position: absolute;
-    width: 250px; 
-  }
+body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: black; /* 余白を黒で埋める */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#bg-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+audio {
+  position: absolute;
+  width: 250px;
+  z-index: 1;
+}
 </style>
 </head>
 <body>
+
+<img id="bg-img" src="" alt="Background Image">
 
 <audio controls src="117.mp3"></audio>
 <audio controls src="118.mp3"></audio>
@@ -29,13 +48,28 @@
 <audio controls src="138.mp3"></audio>
 
 <script>
+
+const images = [
+  "mea red heart.png",
+  "mea blue pluspicture who.png",
+  "mea red pluspicture who.png",
+  "mea blue pluspicture.png",
+  "mea red pluspicture.png",
+  "mea blue.png",
+  "mea red.png",
+  "mea blue pluscolor.png",
+  "mea red pluscolor.png"
+];
+const bgImg = document.getElementById("bg-img");
+bgImg.src = images[Math.floor(Math.random() * images.length)];
+
+
 const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
 const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
-
 
 audios.forEach(audio => {
   let cell;
@@ -66,28 +100,6 @@ audios.forEach(audio => {
     audio.play();
   });
 });
-
-
-const images = [
-  "mea red heart.png",
-  "mea blue pluspicture who.png",
-  "mea red pluspicture who.png",
-  "mea blue pluspicture.png",
-  "mea red pluspicture.png",
-  "mea blue.png",
-  "mea red.png",
-  "mea blue pluscolor.png",
-  "mea red pluscolor.png"
-];
-const chosenImage = images[Math.floor(Math.random() * images.length)];
-document.body.style.backgroundImage = `url('${chosenImage}')`;
-document.body.style.backgroundSize = "cover";
-document.body.style.backgroundPosition = "center";
-document.body.style.backgroundRepeat = "no-repeat";
-
-
-const img = new Image();
-img.src = chosenImage;
 </script>
 
 </body>
