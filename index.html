@@ -5,9 +5,11 @@
 <title></title>
 <style>
 body {
-  height: 150vh; 
-  position: relative;
   margin: 0;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
 }
 audio {
   position: absolute;
@@ -17,33 +19,4 @@ audio {
 </head>
 <body>
 
-<audio controls src="117.mp3"></audio>
-<audio controls src="123.mp3"></audio>
-<audio controls src="129.mp3"></audio>
-<audio controls src="131.mp3"></audio>
-<audio controls src="135.mp3"></audio>
-<audio controls src="138.mp3"></audio>
-
-<script>
-function placeAudios() {
-  const audios = document.querySelectorAll("audio");
-  const bodyHeight = document.body.clientHeight - 80;
-  const bodyWidth = document.body.clientWidth - 260;
-
-  audios.forEach(audio => {
-  
-    const top = Math.random() * bodyHeight;
-    const left = Math.random() * bodyWidth;
-    audio.style.top = top + "px";
-    audio.style.left = left + "px";
-  });
-}
-
-
-window.addEventListener("load", () => {
-  setTimeout(placeAudios, 100);
-});
-</script>
-
-</body>
-</html>
+<audio controls sr
