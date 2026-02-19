@@ -1,43 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>MEA OST demo </title>
+<title>MEA OST demo</title>
 <style>
-  body {
-    margin: 0;
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  audio {
-    position: absolute;
-    width: 250px; 
-  }
+html, body {
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 背景画像用 */
+body {
+  background-size: cover;      /* 全体にフィット */
+  background-position: center; /* 真ん中で表示 */
+  background-repeat: no-repeat;
+}
+
+/* 音声プレイヤー */
+audio {
+  position: absolute;
+  width: 250px;
+  background-color: white;  /* 黒から白に */
+  color: black;
+  border-radius: 5px;
+}
 </style>
 </head>
 <body>
 
-<audio controls src="117.mp3"></audio>
-<audio controls src="118.mp3"></audio>
-<audio controls src="123.mp3"></audio>
-<audio controls src="129.mp3"></audio>
-<audio controls src="131.mp3"></audio>
-<audio controls src="135.mp3"></audio>
-<audio controls src="138.mp3"></audio>
+<audio controls src="117.mp3" preload="none"></audio>
+<audio controls src="118.mp3" preload="none"></audio>
+<audio controls src="123.mp3" preload="none"></audio>
+<audio controls src="129.mp3" preload="none"></audio>
+<audio controls src="131.mp3" preload="none"></audio>
+<audio controls src="135.mp3" preload="none"></audio>
+<audio controls src="138.mp3" preload="none"></audio>
 
 <script>
+// 背景画像リスト
+const bgImages = [
+  "mea red heart.png",
+  "mea blue pluspicture who.png",
+  "mea red pluspicture who.png",
+  "mea blue pluspicture.png",
+  "mea red pluspicture.png",
+  "mea blue.png",
+  "mea red.png",
+  "mea blue pluscolor.png",
+  "mea red pluscolor.png"
+];
+
+// ページロードごとにランダム背景
+document.body.style.backgroundImage = `url('${bgImages[Math.floor(Math.random() * bgImages.length)]}')`;
+
+// 音声のランダム配置
 const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
 const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
-
 
 audios.forEach(audio => {
   let cell;
@@ -56,34 +81,16 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
-
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
-        other.currentTime = 0; 
+        other.currentTime = 0;
       }
     });
-    audio.play();
   });
 });
-
-
-const bgImages = [
-  "mea red heart.png",
-  "mea blue pluspicture who.png",
-  "mea red pluspicture who.png",
-  "mea blue pluspicture.png",
-  "mea red pluspicture.png",
-  "mea blue.png",
-  "mea red.png",
-  "mea blue pluscolor.png",
-  "mea red pluscolor.png"
-];
-
-const randomBg = bgImages[Math.floor(Math.random() * bgImages.length)];
-document.body.style.backgroundImage = `url('${randomBg}')`;
 </script>
 
 </body>
