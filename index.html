@@ -13,7 +13,15 @@ body {
 }
 audio {
   position: absolute;
-  width: 250px;
+  width: 250px; 
+}
+
+
+@media (max-width: 768px) {
+  audio {
+    width: 90vw;
+    max-width: 300px;
+  }
 }
 </style>
 </head>
@@ -34,7 +42,7 @@ const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
 
-// ランダム配置（重なりなし）
+
 audios.forEach(audio => {
   let cell;
   do {
@@ -52,16 +60,16 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
-// 同時再生禁止（修正版）
+// 同時再生禁止
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
-        other.currentTime = 0; // 再生位置リセット
+        other.currentTime = 0;
       }
     });
-    audio.play(); // 念のため自分を再生
+    audio.play();
   });
 });
 </script>
