@@ -34,7 +34,6 @@ const cellWidth = window.innerWidth / cols;
 const cellHeight = window.innerHeight / rows;
 const usedCells = [];
 
-
 audios.forEach(audio => {
   let cell;
   do {
@@ -58,8 +57,10 @@ audios.forEach(audio => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
+        other.currentTime = 0; 
       }
     });
+    audio.play(); 
   });
 });
 </script>
