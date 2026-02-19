@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MEA ost Demo</title>
+<title>MEA OST Demo</title>
 <style>
 body {
   margin: 0;
@@ -10,10 +10,11 @@ body {
   height: 100vh;
   position: relative;
   overflow: hidden;
-  background-size: cover;
-  background-position: center;
+  background-size: cover;      
+  background-position: center; 
   background-repeat: no-repeat;
 }
+
 audio {
   position: absolute;
   width: 250px; 
@@ -33,18 +34,19 @@ audio {
 <script>
 
 const backgrounds = [
-  'mea red heart.png',
-  'mea blue pluspicture who.png',
-  'mea red pluspicture who.png',
-  'mea blue pluspicture.png',
-  'mea red pluspicture.png',
-  'mea blue.png',
-  'mea red.png',
-  'mea blue pluscolor.png',
-  'mea red pluscolor.png'
+  "mea red heart.png",
+  "mea blue pluspicture who.png",
+  "mea red pluspicture who.png",
+  "mea blue pluspicture.png",
+  "mea red pluspicture.png",
+  "mea blue.png",
+  "mea red.png",
+  "mea blue pluscolor.png",
+  "mea red pluscolor.png"
 ];
-const randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
-document.body.style.backgroundImage = `url(${randomBg})`;
+
+const bg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+document.body.style.backgroundImage = `url('${bg}')`;
 
 
 const audios = Array.from(document.querySelectorAll("audio"));
@@ -70,7 +72,6 @@ audios.forEach(audio => {
   audio.style.top = top + 'px';
   audio.style.left = left + 'px';
 });
-
 
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
