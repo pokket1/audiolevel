@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <title>MEA OST demo</title>
 <style>
-body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-  background-color: black; 
-  position: relative;
-}
-audio {
-  position: absolute;
-  width: 250px;
-}
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: black; 
+  }
+  audio {
+    position: absolute;
+    width: 250px; 
+  }
 </style>
 </head>
 <body>
@@ -29,30 +29,6 @@ audio {
 <audio controls src="138.mp3"></audio>
 
 <script>
-
-const images = [
-  "mea red heart.png",
-  "mea blue pluspicture who.png",
-  "mea red pluspicture who.png",
-  "mea blue pluspicture.png",
-  "mea red pluspicture.png",
-  "mea blue.png",
-  "mea red.png",
-  "mea blue pluscolor.png",
-  "mea red pluscolor.png"
-];
-
-
-const chosenImage = images[Math.floor(Math.random() * images.length)];
-const img = new Image();
-img.src = chosenImage;
-img.onload = () => {
-  document.body.style.backgroundImage = `url('${chosenImage}')`;
-  document.body.style.backgroundSize = "cover";
-  document.body.style.backgroundPosition = "center";
-  document.body.style.backgroundRepeat = "no-repeat";
-};
-
 const audios = Array.from(document.querySelectorAll("audio"));
 const rows = 3;
 const cols = 3;
@@ -78,16 +54,40 @@ audios.forEach(audio => {
   audio.style.left = left + 'px';
 });
 
+
 audios.forEach(audio => {
   audio.addEventListener('play', () => {
     audios.forEach(other => {
       if (other !== audio) {
         other.pause();
-        other.currentTime = 0;
+        other.currentTime = 0; 
       }
     });
+    audio.play();
   });
 });
+
+
+const images = [
+  "mea red heart.png",
+  "mea blue pluspicture who.png",
+  "mea red pluspicture who.png",
+  "mea blue pluspicture.png",
+  "mea red pluspicture.png",
+  "mea blue.png",
+  "mea red.png",
+  "mea blue pluscolor.png",
+  "mea red pluscolor.png"
+];
+const chosenImage = images[Math.floor(Math.random() * images.length)];
+document.body.style.backgroundImage = `url('${chosenImage}')`;
+document.body.style.backgroundSize = "cover";
+document.body.style.backgroundPosition = "center";
+document.body.style.backgroundRepeat = "no-repeat";
+
+
+const img = new Image();
+img.src = chosenImage;
 </script>
 
 </body>
